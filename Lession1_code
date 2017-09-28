@@ -1,0 +1,40 @@
+// you can also use imports, for example:
+// import java.util.*;
+import java.math.BigInteger;
+import java.util.Comparator;
+import java.util.stream.*;
+import java.util.List;
+import java.util.Arrays;
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public int solution(int N) {
+        // write your code in Java SE 8
+        
+        //1. Translate number to binary format
+        BigInteger bigN = new BigInteger(String.valueOf(N));
+        String binary = bigN.toString(2);
+        
+        //2. Process the string
+        // Use lastIndexOf(int ch) to find the last '1'        
+        int lastOnePos = binary.lastIndexOf('1');        
+        String processStr = binary.substring(0, lastOnePos+1);
+        
+        // remove everything after it        
+        // split the string by '1'
+        String[] temp = processStr.split("1");
+        
+        if ( temp.length == 0 ){
+            return 0;   
+        }
+        
+        List<String> list = Arrays.asList(temp);        
+        
+        // process the result String array
+        // Use stream to find max length string
+        //return the length of that string
+        return list.stream().max(Comparator.comparingInt(String::length)).get().length();       
+        
+    }
+}
